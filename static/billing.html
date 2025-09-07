@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing - Medora Hospital Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'medora-blue': '#1e40af',
+                        'medora-green': '#059669'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-medora-blue">Medora</h1>
+                    <span class="ml-3 text-sm text-gray-500">Billing System</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="patient-dashboard.html" class="text-gray-700 hover:text-medora-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Dashboard</a>
+                    <a href="login.html" class="bg-red-500 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-red-600 transition-colors">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Page Header -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Billing & Payments</h2>
+                <p class="text-gray-600">Manage your medical bills and payments</p>
+            </div>
+
+            <!-- Billing Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-blue-100 rounded-lg">
+                            <svg class="w-6 h-6 text-medora-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Bills</p>
+                            <p class="text-2xl font-semibold text-gray-900">12</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-green-100 rounded-lg">
+                            <svg class="w-6 h-6 text-medora-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Paid</p>
+                            <p class="text-2xl font-semibold text-gray-900">8</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-yellow-100 rounded-lg">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Pending</p>
+                            <p class="text-2xl font-semibold text-gray-900">4</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-red-100 rounded-lg">
+                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Amount</p>
+                            <p class="text-2xl font-semibold text-gray-900">$2,450</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing Table -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                        <h3 class="text-lg font-semibold text-gray-900">Billing History</h3>
+                        <div class="mt-2 sm:mt-0 flex space-x-2">
+                            <input type="text" id="bill-search" placeholder="Search bills..." 
+                                   class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                            <select id="bill-status-filter" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                                <option value="">All Status</option>
+                                <option value="paid">Paid</option>
+                                <option value="unpaid">Unpaid</option>
+                                <option value="overdue">Overdue</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bill ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Appointment ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">B001</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A001</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cardiology Consultation</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Aug 25, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">$150.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Paid</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-medora-blue hover:text-blue-700 mr-3">View</button>
+                                    <button class="text-gray-600 hover:text-gray-900">Download</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">B002</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A002</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">General Checkup</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Aug 28, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">$75.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Unpaid</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button onclick="showPaymentModal('B002', 75.00)" class="text-medora-green hover:text-green-700 mr-3">Pay Now</button>
+                                    <button class="text-medora-blue hover:text-blue-700 mr-3">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">B003</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A003</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Lab Tests</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Aug 30, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">$200.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">Overdue</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button onclick="showPaymentModal('B003', 200.00)" class="text-medora-green hover:text-green-700 mr-3">Pay Now</button>
+                                    <button class="text-medora-blue hover:text-blue-700 mr-3">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">B004</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A004</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">X-Ray Imaging</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sep 01, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">$300.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Paid</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-medora-blue hover:text-blue-700 mr-3">View</button>
+                                    <button class="text-gray-600 hover:text-gray-900">Download</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Payment Summary -->
+            <div class="mt-8 bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Payment Summary</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-medium text-gray-900 mb-3">Payment Methods</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-3">
+                                <input type="radio" id="credit-card" name="payment-method" value="credit-card" class="text-medora-blue focus:ring-medora-blue">
+                                <label for="credit-card" class="text-sm text-gray-700">Credit/Debit Card</label>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <input type="radio" id="bank-transfer" name="payment-method" value="bank-transfer" class="text-medora-blue focus:ring-medora-blue">
+                                <label for="bank-transfer" class="text-sm text-gray-700">Bank Transfer</label>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <input type="radio" id="insurance" name="payment-method" value="insurance" class="text-medora-blue focus:ring-medora-blue">
+                                <label for="insurance" class="text-sm text-gray-700">Insurance</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-900 mb-3">Recent Payments</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Cardiology Consultation</span>
+                                <span class="font-medium text-gray-900">$150.00</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">X-Ray Imaging</span>
+                                <span class="font-medium text-gray-900">$300.00</span>
+                            </div>
+                            <div class="border-t pt-2">
+                                <div class="flex justify-between font-medium">
+                                    <span>Total Paid</span>
+                                    <span class="text-medora-green">$450.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">Payment Details</h3>
+                    <button id="close-payment-modal" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600">Bill ID: <span id="modal-bill-id" class="font-medium text-gray-900"></span></p>
+                    <p class="text-sm text-gray-600">Amount: <span id="modal-amount" class="font-medium text-gray-900"></span></p>
+                </div>
+                
+                <form id="payment-form" class="space-y-4">
+                    <div>
+                        <label for="card-number" class="block text-sm font-medium text-gray-700">Card Number</label>
+                        <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" required 
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="expiry-date" class="block text-sm font-medium text-gray-700">Expiry Date</label>
+                            <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" required 
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                        </div>
+                        <div>
+                            <label for="cvv" class="block text-sm font-medium text-gray-700">CVV</label>
+                            <input type="text" id="cvv" name="cvv" placeholder="123" required 
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="card-holder" class="block text-sm font-medium text-gray-700">Card Holder Name</label>
+                        <input type="text" id="card-holder" name="card-holder" placeholder="John Doe" required 
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        <button type="submit" class="flex-1 bg-medora-green text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-medora-green transition-colors">
+                            Pay Now
+                        </button>
+                        <button type="button" id="cancel-payment" class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none transition-colors">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for billing functionality -->
+    <script>
+        // Payment modal functionality
+        const paymentModal = document.getElementById('payment-modal');
+        const closePaymentModal = document.getElementById('close-payment-modal');
+        const cancelPayment = document.getElementById('cancel-payment');
+
+        function showPaymentModal(billId, amount) {
+            document.getElementById('modal-bill-id').textContent = billId;
+            document.getElementById('modal-amount').textContent = `$${amount.toFixed(2)}`;
+            paymentModal.classList.remove('hidden');
+        }
+
+        closePaymentModal.addEventListener('click', () => {
+            paymentModal.classList.add('hidden');
+        });
+
+        cancelPayment.addEventListener('click', () => {
+            paymentModal.classList.add('hidden');
+        });
+
+        // Close modal when clicking outside
+        paymentModal.addEventListener('click', (e) => {
+            if (e.target === paymentModal) {
+                paymentModal.classList.add('hidden');
+            }
+        });
+
+        // Payment form submission
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const cardNumber = document.getElementById('card-number').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+            const cardHolder = document.getElementById('card-holder').value;
+            
+            if (!cardNumber || !expiryDate || !cvv || !cardHolder) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Simulate payment processing
+            alert('Payment processed successfully! Your bill has been marked as paid.');
+            paymentModal.classList.add('hidden');
+            document.getElementById('payment-form').reset();
+            
+            // Update the table row status (in a real app, this would update the backend)
+            // For demo purposes, we'll just show an alert
+        });
+
+        // Bill search and filter functionality
+        document.getElementById('bill-search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            // Implement search functionality
+            console.log('Searching for:', searchTerm);
+        });
+
+        document.getElementById('bill-status-filter').addEventListener('change', function(e) {
+            const status = e.target.value;
+            // Implement status filtering
+            console.log('Filtering by status:', status);
+        });
+
+        // Card number formatting
+        document.getElementById('card-number').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Expiry date formatting
+        document.getElementById('expiry-date').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // CVV formatting
+        document.getElementById('cvv').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            e.target.value = value.slice(0, 3);
+        });
+    </script>
+</body>
+</html>

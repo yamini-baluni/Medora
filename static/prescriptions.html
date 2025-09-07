@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescriptions - Medora Hospital Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'medora-blue': '#1e40af',
+                        'medora-green': '#059669'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-medora-blue">Medora</h1>
+                    <span class="ml-3 text-sm text-gray-500">Prescriptions</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="patient-dashboard.html" class="text-gray-700 hover:text-medora-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Dashboard</a>
+                    <a href="login.html" class="bg-red-500 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-red-600 transition-colors">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Page Header -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Prescriptions</h2>
+                <p class="text-gray-600">View and manage your medical prescriptions</p>
+            </div>
+
+            <!-- Role-based Content Toggle -->
+            <div class="mb-6">
+                <div class="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
+                    <button id="patient-view-btn" class="flex-1 py-2 px-4 rounded-md text-sm font-medium text-gray-700 bg-white shadow-sm transition-colors">
+                        Patient View
+                    </button>
+                    <button id="doctor-view-btn" class="flex-1 py-2 px-4 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors">
+                        Doctor View
+                    </button>
+                </div>
+            </div>
+
+            <!-- Patient View - View Prescriptions -->
+            <div id="patient-view" class="space-y-6">
+                <!-- Prescription Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Prescription Card 1 -->
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-medora-blue rounded-full flex items-center justify-center text-white font-semibold">
+                                        SJ
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Dr. Sarah Johnson</p>
+                                        <p class="text-sm text-gray-500">Cardiology</p>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Active</span>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Diagnosis</h3>
+                                <p class="text-sm text-gray-600">Hypertension and mild chest pain. Patient shows signs of stress-related cardiovascular symptoms.</p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Medications</h3>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                        <span class="text-sm font-medium text-gray-900">Amlodipine</span>
+                                        <span class="text-xs text-gray-600">5mg daily</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                        <span class="text-sm font-medium text-gray-900">Lisinopril</span>
+                                        <span class="text-xs text-gray-600">10mg daily</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                        <span class="text-sm font-medium text-gray-900">Aspirin</span>
+                                        <span class="text-xs text-gray-600">81mg daily</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Instructions</h3>
+                                <p class="text-sm text-gray-600">Take medications as prescribed. Monitor blood pressure daily. Follow up in 2 weeks.</p>
+                            </div>
+                            
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span>Prescribed: Aug 25, 2025</span>
+                                <span>Valid until: Sep 25, 2025</span>
+                            </div>
+                            
+                            <div class="mt-4 flex space-x-2">
+                                <button class="flex-1 bg-medora-blue text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors text-sm">
+                                    Download PDF
+                                </button>
+                                <button class="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors text-sm">
+                                    Share
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prescription Card 2 -->
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-medora-green rounded-full flex items-center justify-center text-white font-semibold">
+                                        MC
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Dr. Michael Chen</p>
+                                        <p class="text-sm text-gray-500">General Medicine</p>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Expiring Soon</span>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Diagnosis</h3>
+                                <p class="text-sm text-gray-600">Seasonal allergies with mild respiratory symptoms. No fever or severe complications.</p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Medications</h3>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                        <span class="text-sm font-medium text-gray-900">Cetirizine</span>
+                                        <span class="text-xs text-gray-600">10mg daily</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                        <span class="text-sm font-medium text-gray-900">Fluticasone</span>
+                                        <span class="text-xs text-gray-600">2 sprays daily</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Instructions</h3>
+                                <p class="text-sm text-gray-600">Use nasal spray in the morning. Take antihistamine as needed for symptoms.</p>
+                            </div>
+                            
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span>Prescribed: Aug 20, 2025</span>
+                                <span>Valid until: Sep 20, 2025</span>
+                            </div>
+                            
+                            <div class="mt-4 flex space-x-2">
+                                <button class="flex-1 bg-medora-blue text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors text-sm">
+                                    Download PDF
+                                </button>
+                                <button class="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors text-sm">
+                                    Share
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prescription Card 3 -->
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-semibold">
+                                        EW
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Dr. Emily Wilson</p>
+                                        <p class="text-sm text-gray-500">Pediatrics</p>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">Expired</span>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Diagnosis</h3>
+                                <p class="text-sm text-gray-600">Minor skin infection. Localized redness and mild itching.</p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Medications</h3>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                        <span class="text-sm font-medium text-gray-900">Mupirocin</span>
+                                        <span class="text-xs text-gray-600">Apply 3x daily</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                        <span class="text-sm font-medium text-gray-900">Hydrocortisone</span>
+                                        <span class="text-xs text-gray-600">Apply 2x daily</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Instructions</h3>
+                                <p class="text-sm text-gray-600">Clean area before applying. Use for 7 days or until symptoms resolve.</p>
+                            </div>
+                            
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span>Prescribed: Aug 10, 2025</span>
+                                <span>Valid until: Aug 17, 2025</span>
+                            </div>
+                            
+                            <div class="mt-4 flex space-x-2">
+                                <button class="flex-1 bg-gray-300 text-gray-500 py-2 px-4 rounded-md cursor-not-allowed text-sm">
+                                    Download PDF
+                                </button>
+                                <button class="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors text-sm">
+                                    Share
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor View - Add Prescriptions -->
+            <div id="doctor-view" class="hidden space-y-6">
+                <!-- Add New Prescription Form -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Add New Prescription</h3>
+                    
+                    <form id="add-prescription-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="prescription-patient" class="block text-sm font-medium text-gray-700">Select Patient</label>
+                                <select id="prescription-patient" name="patient" required 
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                                    <option value="">Choose a patient</option>
+                                    <option value="p001">John Doe (P001)</option>
+                                    <option value="p015">Jane Smith (P015)</option>
+                                    <option value="p089">Mike Johnson (P089)</option>
+                                    <option value="p234">Sarah Wilson (P234)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="prescription-date" class="block text-sm font-medium text-gray-700">Prescription Date</label>
+                                <input type="date" id="prescription-date" name="date" required 
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="prescription-diagnosis" class="block text-sm font-medium text-gray-700">Diagnosis</label>
+                            <textarea id="prescription-diagnosis" name="diagnosis" rows="3" 
+                                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue"
+                                      placeholder="Enter detailed diagnosis"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label for="prescription-medicines" class="block text-sm font-medium text-gray-700">Medicines & Dosage</label>
+                            <div id="medicines-container" class="space-y-2">
+                                <div class="flex space-x-2">
+                                    <input type="text" name="medicine[]" placeholder="Medicine name" 
+                                           class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                                    <input type="text" name="dosage[]" placeholder="Dosage instructions" 
+                                           class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                                    <button type="button" onclick="removeMedicine(this)" class="px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="button" onclick="addMedicine()" class="mt-2 text-medora-blue hover:text-blue-700 text-sm">
+                                + Add another medicine
+                            </button>
+                        </div>
+                        
+                        <div>
+                            <label for="prescription-instructions" class="block text-sm font-medium text-gray-700">Patient Instructions</label>
+                            <textarea id="prescription-instructions" name="instructions" rows="3" 
+                                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue"
+                                      placeholder="Enter specific instructions for the patient"></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="prescription-validity" class="block text-sm font-medium text-gray-700">Valid Until</label>
+                                <input type="date" id="prescription-validity" name="validity" required 
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                            </div>
+                            
+                            <div>
+                                <label for="prescription-followup" class="block text-sm font-medium text-gray-700">Follow-up Required</label>
+                                <select id="prescription-followup" name="followup" 
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                                    <option value="no">No follow-up needed</option>
+                                    <option value="1week">1 week</option>
+                                    <option value="2weeks">2 weeks</option>
+                                    <option value="1month">1 month</option>
+                                    <option value="3months">3 months</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-3">
+                            <button type="submit" class="flex-1 bg-medora-green text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-medora-green transition-colors">
+                                Save Prescription
+                            </button>
+                            <button type="button" onclick="resetForm()" class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none transition-colors">
+                                Reset Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Recent Prescriptions Table -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900">Recent Prescriptions</h3>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Diagnosis</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 bg-medora-blue rounded-full flex items-center justify-center text-white text-sm font-medium">
+                                                JD
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">John Doe</div>
+                                                <div class="text-sm text-gray-500">P001</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Hypertension</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Aug 25, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-medora-blue hover:text-blue-700 mr-3">Edit</button>
+                                        <button class="text-red-600 hover:text-red-900">Cancel</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 bg-medora-green rounded-full flex items-center justify-center text-white text-sm font-medium">
+                                                JS
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">Jane Smith</div>
+                                                <div class="text-sm text-gray-500">P015</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Seasonal Allergies</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Aug 20, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Expiring Soon</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-medora-blue hover:text-blue-700 mr-3">Edit</button>
+                                        <button class="text-red-600 hover:text-red-900">Cancel</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for prescription functionality -->
+    <script>
+        // View toggle functionality
+        const patientViewBtn = document.getElementById('patient-view-btn');
+        const doctorViewBtn = document.getElementById('doctor-view-btn');
+        const patientView = document.getElementById('patient-view');
+        const doctorView = document.getElementById('doctor-view');
+
+        patientViewBtn.addEventListener('click', () => {
+            patientViewBtn.classList.add('bg-white', 'shadow-sm', 'text-gray-700');
+            patientViewBtn.classList.remove('text-gray-500');
+            doctorViewBtn.classList.remove('bg-white', 'shadow-sm', 'text-gray-700');
+            doctorViewBtn.classList.add('text-gray-500');
+            
+            patientView.classList.remove('hidden');
+            doctorView.classList.add('hidden');
+        });
+
+        doctorViewBtn.addEventListener('click', () => {
+            doctorViewBtn.classList.add('bg-white', 'shadow-sm', 'text-gray-700');
+            doctorViewBtn.classList.remove('text-gray-500');
+            patientViewBtn.classList.remove('bg-white', 'shadow-sm', 'text-gray-700');
+            patientViewBtn.classList.add('text-gray-500');
+            
+            doctorView.classList.remove('hidden');
+            patientView.classList.add('hidden');
+        });
+
+        // Medicine management functions
+        function addMedicine() {
+            const container = document.getElementById('medicines-container');
+            const medicineDiv = document.createElement('div');
+            medicineDiv.className = 'flex space-x-2';
+            medicineDiv.innerHTML = `
+                <input type="text" name="medicine[]" placeholder="Medicine name" 
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                <input type="text" name="dosage[]" placeholder="Dosage instructions" 
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                <button type="button" onclick="removeMedicine(this)" class="px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            `;
+            container.appendChild(medicineDiv);
+        }
+
+        function removeMedicine(button) {
+            button.parentElement.remove();
+        }
+
+        function resetForm() {
+            document.getElementById('add-prescription-form').reset();
+            const container = document.getElementById('medicines-container');
+            container.innerHTML = `
+                <div class="flex space-x-2">
+                    <input type="text" name="medicine[]" placeholder="Medicine name" 
+                           class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                    <input type="text" name="dosage[]" placeholder="Dosage instructions" 
+                           class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                    <button type="button" onclick="removeMedicine(this)" class="px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+        }
+
+        // Prescription form submission
+        document.getElementById('add-prescription-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const patient = document.getElementById('prescription-patient').value;
+            const date = document.getElementById('prescription-date').value;
+            const diagnosis = document.getElementById('prescription-diagnosis').value;
+            const instructions = document.getElementById('prescription-instructions').value;
+            const validity = document.getElementById('prescription-validity').value;
+            const followup = document.getElementById('prescription-followup').value;
+            
+            if (!patient || !date || !diagnosis || !validity) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Simulate prescription saving
+            alert('Prescription saved successfully!');
+            resetForm();
+        });
+
+        // Set current date for prescription
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('prescription-date').value = today;
+        
+        // Set default validity date (1 month from today)
+        const nextMonth = new Date();
+        nextMonth.setMonth(nextMonth.getMonth() + 1);
+        document.getElementById('prescription-validity').value = nextMonth.toISOString().split('T')[0];
+    </script>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - Medora Hospital Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'medora-blue': '#1e40af',
+                        'medora-green': '#059669'
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        (function personalize() {
+            const params = new URLSearchParams(window.location.search);
+            const name = params.get('name') || 'Doctor';
+            const id = params.get('id') || '—';
+            const welcome = document.getElementById('welcomeDoctor');
+            const idText = document.getElementById('doctorIdText');
+            if (welcome) welcome.textContent = `Welcome, Dr. ${name}`;
+            if (idText) idText.textContent = `Doctor ID: ${id}`;
+        })();
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-medora-blue">Medora</h1>
+                    <span class="ml-3 text-sm text-gray-500">Doctor Portal</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="welcomeDoctor" class="text-gray-700">Welcome</span>
+                    <a href="/app/static/login.html" class="bg-red-500 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-red-600 transition-colors">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Dashboard Header -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Doctor Dashboard</h2>
+                <p id="doctorIdText" class="text-gray-600">Manage your patients and appointments</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-blue-100 rounded-lg">
+                            <svg class="w-6 h-6 text-medora-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Today's Appointments</p>
+                            <p class="text-2xl font-semibold text-gray-900">8</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-green-100 rounded-lg">
+                            <svg class="w-6 h-6 text-medora-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Patients</p>
+                            <p class="text-2xl font-semibold text-gray-900">156</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-yellow-100 rounded-lg">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Pending Reviews</p>
+                            <p class="text-2xl font-semibold text-gray-900">12</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-purple-100 rounded-lg">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Prescriptions</p>
+                            <p class="text-2xl font-semibold text-gray-900">23</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column - Today's Schedule -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-900">Today's Schedule</h3>
+                            <button id="add-prescription-btn" class="bg-medora-green text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors">
+                                Add Prescription
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg border-l-4 border-medora-blue">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-medora-blue rounded-full flex items-center justify-center text-white font-semibold">
+                                        9:00
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">John Doe</p>
+                                        <p class="text-sm text-gray-600">Cardiology Consultation</p>
+                                        <p class="text-xs text-gray-500">Patient ID: P001</p>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="px-3 py-1 bg-medora-blue text-white text-sm rounded hover:bg-blue-700 transition-colors">
+                                        Start
+                                    </button>
+                                    <button class="px-3 py-1 bg-gray-300 text-gray-700 text-sm rounded hover:bg-gray-400 transition-colors">
+                                        Reschedule
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold">
+                                        10:30
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Jane Smith</p>
+                                        <p class="text-sm text-gray-600">Follow-up Check</p>
+                                        <p class="text-xs text-gray-500">Patient ID: P015</p>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="px-3 py-1 bg-medora-blue text-white text-sm rounded hover:bg-blue-700 transition-colors">
+                                        Start
+                                    </button>
+                                    <button class="px-3 py-1 bg-gray-300 text-gray-700 text-sm rounded hover:bg-gray-400 transition-colors">
+                                        Reschedule
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white font-semibold">
+                                        14:00
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Mike Johnson</p>
+                                        <p class="text-sm text-gray-600">Initial Consultation</p>
+                                        <p class="text-xs text-gray-500">Patient ID: P089</p>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="px-3 py-1 bg-medora-blue text-white text-sm rounded hover:bg-blue-700 transition-colors">
+                                        Start
+                                    </button>
+                                    <button class="px-3 py-1 bg-gray-300 text-gray-700 text-sm rounded hover:bg-gray-400 transition-colors">
+                                        Reschedule
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border-l-4 border-gray-400">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gray-400 rounded-full flex items-center justify-center text-white font-semibold">
+                                        16:00
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Sarah Wilson</p>
+                                        <p class="text-sm text-gray-600">Routine Check</p>
+                                        <p class="text-xs text-gray-500">Patient ID: P234</p>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="px-3 py-1 bg-medora-blue text-white text-sm rounded hover:bg-blue-700 transition-colors">
+                                        Start
+                                    </button>
+                                    <button class="px-3 py-1 bg-gray-300 text-gray-700 text-sm rounded hover:bg-gray-400 transition-colors">
+                                        Reschedule
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-6">
+                    <!-- Quick Actions -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <button onclick="showSection('patients')" class="w-full p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors text-left">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-medora-blue mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                    <span class="font-medium text-gray-900">View All Patients</span>
+                                </div>
+                            </button>
+                            <button onclick="showSection('appointments')" class="w-full p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors text-left">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-medora-green mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span class="font-medium text-gray-900">Manage Appointments</span>
+                                </div>
+                            </button>
+                            <button onclick="showSection('prescriptions')" class="w-full p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors text-left">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    <span class="font-medium text-gray-900">View Prescriptions</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Patients -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Patients</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                <div class="w-8 h-8 bg-medora-blue rounded-full flex items-center justify-center text-white text-sm font-medium">
+                                    JD
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 text-sm">John Doe</p>
+                                    <p class="text-xs text-gray-500">Last visit: 2 days ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                <div class="w-8 h-8 bg-medora-green rounded-full flex items-center justify-center text-white text-sm font-medium">
+                                    JS
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 text-sm">Jane Smith</p>
+                                    <p class="text-xs text-gray-500">Last visit: 1 week ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                                    MJ
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 text-sm">Mike Johnson</p>
+                                    <p class="text-xs text-gray-500">Last visit: 3 days ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Notifications</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                                <div>
+                                    <p class="text-sm text-gray-900">New patient registration</p>
+                                    <p class="text-xs text-gray-500">5 minutes ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                                <div>
+                                    <p class="text-sm text-gray-900">Lab results ready</p>
+                                    <p class="text-xs text-gray-500">1 hour ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
+                                <div>
+                                    <p class="text-sm text-gray-900">Appointment reminder</p>
+                                    <p class="text-xs text-gray-500">2 hours ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Prescription Modal -->
+    <div id="prescription-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">Add New Prescription</h3>
+                    <button id="close-prescription-modal" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <form id="prescription-form" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="prescription-patient" class="block text-sm font-medium text-gray-700">Select Patient</label>
+                            <select id="prescription-patient" name="patient" required 
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                                <option value="">Choose a patient</option>
+                                <option value="p001">John Doe (P001)</option>
+                                <option value="p015">Jane Smith (P015)</option>
+                                <option value="p089">Mike Johnson (P089)</option>
+                                <option value="p234">Sarah Wilson (P234)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="prescription-date" class="block text-sm font-medium text-gray-700">Prescription Date</label>
+                            <input type="date" id="prescription-date" name="date" required 
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="prescription-diagnosis" class="block text-sm font-medium text-gray-700">Diagnosis</label>
+                        <textarea id="prescription-diagnosis" name="diagnosis" rows="2" 
+                                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue"
+                                  placeholder="Enter diagnosis"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="prescription-medicines" class="block text-sm font-medium text-gray-700">Medicines & Dosage</label>
+                        <div id="medicines-container" class="space-y-2">
+                            <div class="flex space-x-2">
+                                <input type="text" name="medicine[]" placeholder="Medicine name" 
+                                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                                <input type="text" name="dosage[]" placeholder="Dosage" 
+                                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                                <button type="button" onclick="removeMedicine(this)" class="px-2 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addMedicine()" class="mt-2 text-medora-blue hover:text-blue-700 text-sm">
+                            + Add another medicine
+                        </button>
+                    </div>
+                    
+                    <div>
+                        <label for="prescription-notes" class="block text-sm font-medium text-gray-700">Additional Notes</label>
+                        <textarea id="prescription-notes" name="notes" rows="3" 
+                                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue"
+                                  placeholder="Any additional instructions or notes"></textarea>
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        <button type="submit" class="flex-1 bg-medora-green text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-medora-green transition-colors">
+                            Save Prescription
+                        </button>
+                        <button type="button" id="cancel-prescription" class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none transition-colors">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for dashboard functionality -->
+    <script>
+        // Prescription modal functionality
+        const addPrescriptionBtn = document.getElementById('add-prescription-btn');
+        const prescriptionModal = document.getElementById('prescription-modal');
+        const closePrescriptionModal = document.getElementById('close-prescription-modal');
+        const cancelPrescription = document.getElementById('cancel-prescription');
+
+        addPrescriptionBtn.addEventListener('click', () => {
+            prescriptionModal.classList.remove('hidden');
+        });
+
+        closePrescriptionModal.addEventListener('click', () => {
+            prescriptionModal.classList.add('hidden');
+        });
+
+        cancelPrescription.addEventListener('click', () => {
+            prescriptionModal.classList.add('hidden');
+        });
+
+        // Close modal when clicking outside
+        prescriptionModal.addEventListener('click', (e) => {
+            if (e.target === prescriptionModal) {
+                prescriptionModal.classList.add('hidden');
+            }
+        });
+
+        // Medicine management functions
+        function addMedicine() {
+            const container = document.getElementById('medicines-container');
+            const medicineDiv = document.createElement('div');
+            medicineDiv.className = 'flex space-x-2';
+            medicineDiv.innerHTML = `
+                <input type="text" name="medicine[]" placeholder="Medicine name" 
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                <input type="text" name="dosage[]" placeholder="Dosage" 
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                <button type="button" onclick="removeMedicine(this)" class="px-2 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            `;
+            container.appendChild(medicineDiv);
+        }
+
+        function removeMedicine(button) {
+            button.parentElement.remove();
+        }
+
+        // Prescription form submission
+        document.getElementById('prescription-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const patient = document.getElementById('prescription-patient').value;
+            const date = document.getElementById('prescription-date').value;
+            const diagnosis = document.getElementById('prescription-diagnosis').value;
+            const notes = document.getElementById('prescription-notes').value;
+            
+            if (!patient || !date || !diagnosis) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Simulate prescription saving
+            alert('Prescription saved successfully!');
+            prescriptionModal.classList.add('hidden');
+            document.getElementById('prescription-form').reset();
+            
+            // Reset medicines container
+            const container = document.getElementById('medicines-container');
+            container.innerHTML = `
+                <div class="flex space-x-2">
+                    <input type="text" name="medicine[]" placeholder="Medicine name" 
+                           class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                    <input type="text" name="dosage[]" placeholder="Dosage" 
+                           class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
+                    <button type="button" onclick="removeMedicine(this)" class="px-2 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+        });
+
+        // Section navigation (placeholder for other pages)
+        function showSection(section) {
+            // This would navigate to different sections or pages
+            alert(`Navigating to ${section} section...`);
+            // In a real application, this would load different content or navigate to different pages
+        }
+
+        // Set current date for prescription
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('prescription-date').value = today;
+    </script>
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Medora Hospital Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'medora': {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'bounce-in': 'bounceIn 0.8s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(40px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        bounceIn: {
+                            '0%': { transform: 'scale(0.3)', opacity: '0' },
+                            '50%': { transform: 'scale(1.05)' },
+                            '70%': { transform: 'scale(0.9)' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <!-- Navigation -->
+    <nav class="hero-gradient text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white bg-opacity-20 rounded-xl flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">M</span>
+                    </div>
+                    <span class="text-2xl font-bold">Medora Dashboard</span>
+                </div>
+                
+                <!-- Role-based Navigation Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <!-- Dashboard - Always visible -->
+                    <a href="#" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">
+                        Dashboard
+                    </a>
+                    
+                    <!-- Patient-specific menu items -->
+                    <div id="patient-menu" class="hidden">
+                        <a href="#" onclick="viewAppointments()" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">
+                            Appointments
+                        </a>
+                        <a href="#" onclick="viewMedicalRecords()" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">
+                            My Health
+                        </a>
+                    </div>
+                    
+                    <!-- Doctor/Admin-specific menu items -->
+                    <div id="staff-menu" class="hidden">
+                        <a href="#" onclick="viewPatients()" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">
+                            Patients
+                        </a>
+                        <a href="#" onclick="viewPatients()" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">
+                            Add Patient
+                        </a>
+                        <a href="#" onclick="manageAppointments()" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">
+                            Appointments
+                        </a>
+                        <a href="#" onclick="manageUsers()" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">
+                            Users
+                        </a>
+                        <a href="#" onclick="viewMedicalRecords()" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">
+                            My Health
+                        </a>
+                    </div>
+                    
+                    <!-- Profile - Always visible -->
+                    <a href="#" onclick="viewProfile()" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">
+                        Profile
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <span id="user-info" class="text-white font-medium"></span>
+                    <button onclick="logout()" class="bg-white bg-opacity-20 text-white px-4 py-2 rounded-lg hover:bg-opacity-30 transition-all duration-200">
+                        Logout
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="#" class="text-white hover:text-gray-200 font-medium">Dashboard</a>
+                    
+                    <!-- Patient-specific mobile menu items -->
+                    <div id="patient-menu-mobile" class="hidden">
+                        <a href="#" onclick="viewAppointments()" class="text-white hover:text-gray-200 font-medium">
+                            Appointments
+                        </a>
+                        <a href="#" onclick="viewMedicalRecords()" class="text-white hover:text-gray-200 font-medium">
+                            My Health
+                        </a>
+                    </div>
+                    
+                    <!-- Doctor/Admin-specific mobile menu items -->
+                    <div id="staff-menu-mobile" class="hidden">
+                        <a href="#" onclick="viewPatients()" class="text-white hover:text-gray-200 font-medium">
+                            Patients
+                        </a>
+                        <a href="#" onclick="viewPatients()" class="text-white hover:text-gray-200 font-medium">
+                            Add Patient
+                        </a>
+                        <a href="#" onclick="manageAppointments()" class="text-white hover:text-gray-200 font-medium">
+                            Appointments
+                        </a>
+                        <a href="#" onclick="manageUsers()" class="text-white hover:text-gray-200 font-medium">
+                            Users
+                        </a>
+                        <a href="#" onclick="viewMedicalRecords()" class="text-white hover:text-gray-200 font-medium">
+                            My Health
+                        </a>
+                    </div>
+                    
+                    <a href="#" onclick="viewProfile()" class="text-white hover:text-gray-200 font-medium">Profile</a>
+                </div>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Patient Dashboard -->
+        <div id="patient-dashboard" class="hidden animate-fade-in">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Patient Dashboard</h2>
+            
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Appointments</h3>
+                    <p class="text-3xl font-bold text-medora-600" id="appointment-count">3</p>
+                </div>
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Medical Records</h3>
+                    <p class="text-3xl font-bold text-green-600" id="records-count">12</p>
+                </div>
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Prescriptions</h3>
+                    <p class="text-3xl font-bold text-purple-600" id="prescription-count">5</p>
+                </div>
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Bills</h3>
+                    <p class="text-3xl font-bold text-orange-600" id="bills-count">2</p>
+                </div>
+            </div>
+
+            <!-- Book Appointment Section -->
+            <div class="glass-card rounded-xl shadow-lg p-6 mb-8">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Book Appointment</h3>
+                <button onclick="openAppointmentModal()" class="bg-gradient-to-r from-medora-500 to-medora-600 text-white px-6 py-3 rounded-lg hover:from-medora-600 hover:to-medora-700 transition-all duration-200 shadow-lg hover:shadow-xl">
+                    Book New Appointment
+                </button>
+            </div>
+
+            <!-- Quick Actions and Recent Activity -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Quick Actions</h3>
+                    <div class="space-y-3">
+                        <button onclick="viewAppointments()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            View Appointments
+                        </button>
+                        <button onclick="viewMedicalRecords()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            View Medical Records
+                        </button>
+                        <button onclick="viewPrescriptions()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            View Prescriptions
+                        </button>
+                        <button onclick="viewBilling()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            View Bills
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Recent Activity</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <div>
+                                <p class="text-sm font-medium">Appointment confirmed</p>
+                                <p class="text-xs text-gray-500">2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <div>
+                                <p class="text-sm font-medium">New prescription</p>
+                                <p class="text-xs text-gray-500">1 day ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doctor Dashboard -->
+        <div id="doctor-dashboard" class="hidden animate-fade-in">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Doctor Dashboard</h2>
+            
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Today Appointments</h3>
+                    <p class="text-3xl font-bold text-medora-600">8</p>
+                </div>
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Total Patients</h3>
+                    <p class="text-3xl font-bold text-green-600">45</p>
+                </div>
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Pending Reviews</h3>
+                    <p class="text-3xl font-bold text-purple-600">3</p>
+                </div>
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Prescriptions</h3>
+                    <p class="text-3xl font-bold text-orange-600">18</p>
+                </div>
+            </div>
+
+            <!-- Quick Actions and Today Schedule -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Quick Actions</h3>
+                    <div class="space-y-3">
+                        <button onclick="manageAppointments()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            Manage Appointments
+                        </button>
+                        <button onclick="viewPatients()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            View Patients
+                        </button>
+                        <button onclick="addPrescription()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            Add Prescription
+                        </button>
+                        <button onclick="updateMedicalRecords()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            Update Records
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Today Schedule</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium">John Doe</p>
+                                <p class="text-sm text-gray-600">Cardiology - 9:00 AM</p>
+                            </div>
+                            <button class="bg-medora-600 text-white px-3 py-1 rounded text-sm hover:bg-medora-700 transition-colors duration-200">
+                                Start
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium">Jane Smith</p>
+                                <p class="text-sm text-gray-600">Dermatology - 10:30 AM</p>
+                            </div>
+                            <button class="bg-medora-600 text-white px-3 py-1 rounded text-sm hover:bg-medora-700 transition-colors duration-200">
+                                Start
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="hidden animate-fade-in">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Admin Dashboard</h2>
+            
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Total Users</h3>
+                    <p class="text-3xl font-bold text-medora-600">156</p>
+                </div>
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Active Appointments</h3>
+                    <p class="text-3xl font-bold text-green-600">23</p>
+                </div>
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Pending Reports</h3>
+                    <p class="text-3xl font-bold text-purple-600">7</p>
+                </div>
+                <div class="glass-card rounded-xl shadow-lg p-6 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">System Health</h3>
+                    <p class="text-3xl font-bold text-green-600">98%</p>
+                </div>
+            </div>
+
+            <!-- Quick Actions and System Status -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Quick Actions</h3>
+                    <div class="space-y-3">
+                        <button onclick="manageUsers()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            Manage Users
+                        </button>
+                        <button onclick="generateReports()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            Generate Reports
+                        </button>
+                        <button onclick="systemSettings()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            System Settings
+                        </button>
+                        <button onclick="viewLogs()" class="w-full bg-gray-100 text-gray-800 p-3 rounded-lg text-left hover:bg-gray-200 transition-colors duration-200">
+                            View System Logs
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">System Status</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium">Database</p>
+                                <p class="text-sm text-gray-600">Connected</p>
+                            </div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium">API Services</p>
+                                <p class="text-sm text-gray-600">Running</p>
+                            </div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let userRole = null;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            setupMobileMenu();
+        });
+
+        // Check authentication and load user data
+        function checkAuth() {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                window.location.href = '/signin';
+                return;
+            }
+
+            // Get user role from localStorage (set during login)
+            userRole = localStorage.getItem('user_role');
+            if (!userRole) {
+                // Fallback: try to get from token or redirect to login
+                localStorage.removeItem('access_token');
+                window.location.href = '/signin';
+                return;
+            }
+
+            // Set mock user data for now (since API is not working)
+            currentUser = {
+                username: localStorage.getItem('user_id') || 'User',
+                role: userRole
+            };
+
+            showRoleBasedDashboard();
+            updateUserInfo();
+            updateNavigationMenu();
+        }
+
+        // Show dashboard based on user role
+        function showRoleBasedDashboard() {
+            // Hide all dashboards
+            document.getElementById('patient-dashboard').classList.add('hidden');
+            document.getElementById('doctor-dashboard').classList.add('hidden');
+            document.getElementById('admin-dashboard').classList.add('hidden');
+
+            // Show appropriate dashboard
+            if (userRole === 'patient') {
+                document.getElementById('patient-dashboard').classList.remove('hidden');
+            } else if (userRole === 'doctor') {
+                document.getElementById('doctor-dashboard').classList.remove('hidden');
+            } else if (userRole === 'admin') {
+                document.getElementById('admin-dashboard').classList.remove('hidden');
+            }
+        }
+
+        // Update navigation menu based on user role
+        function updateNavigationMenu() {
+            // Hide all role-specific menus first
+            document.getElementById('patient-menu').classList.add('hidden');
+            document.getElementById('staff-menu').classList.add('hidden');
+            document.getElementById('patient-menu-mobile').classList.add('hidden');
+            document.getElementById('staff-menu-mobile').classList.add('hidden');
+
+            // Show appropriate menu based on role
+            if (userRole === 'patient') {
+                // Patient menu: Dashboard, Appointments, My Health, Profile
+                document.getElementById('patient-menu').classList.remove('hidden');
+                document.getElementById('patient-menu-mobile').classList.remove('hidden');
+            } else if (userRole === 'doctor' || userRole === 'admin') {
+                // Staff menu: Dashboard, Patients, Add Patient, Appointments, Users, My Health, Profile
+                document.getElementById('staff-menu').classList.remove('hidden');
+                document.getElementById('staff-menu-mobile').classList.remove('hidden');
+            }
+        }
+
+        // Update user information display
+        function updateUserInfo() {
+            const userInfoElement = document.getElementById('user-info');
+            if (userInfoElement && currentUser) {
+                userInfoElement.textContent = `Welcome, ${currentUser.username}`;
+            }
+        }
+
+        // Setup mobile menu toggle
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        // Navigation functions
+        function viewAppointments() { 
+            window.location.href = '/appointments'; 
+        }
+        
+        function viewMedicalRecords() { 
+            window.location.href = '/medical-records'; 
+        }
+        
+        function viewPrescriptions() { 
+            window.location.href = '/prescriptions'; 
+        }
+        
+        function viewBilling() { 
+            window.location.href = '/billing'; 
+        }
+        
+        function manageAppointments() { 
+            window.location.href = '/appointments'; 
+        }
+        
+        function viewPatients() { 
+            window.location.href = '/add-patient'; 
+        }
+        
+        function addPrescription() { 
+            window.location.href = '/prescriptions'; 
+        }
+        
+        function updateMedicalRecords() { 
+            window.location.href = '/medical-records'; 
+        }
+        
+        function manageUsers() { 
+            window.location.href = '/admin-dashboard'; 
+        }
+        
+        function viewProfile() {
+            alert('Profile page - Coming soon!');
+        }
+        
+        function generateReports() { 
+            alert('Generating reports...'); 
+        }
+        
+        function systemSettings() { 
+            alert('System settings...'); 
+        }
+        
+        function viewLogs() { 
+            alert('Viewing system logs...'); 
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('user_role');
+                localStorage.removeItem('user_id');
+                window.location.href = '/';
+            }
+        }
+    </script>
+</body>
+</html>
