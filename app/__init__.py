@@ -89,22 +89,35 @@ def create_app():
     # Route for serving the Appointments page
     @app.route('/appointments')
     def appointments():
-        return send_from_directory('static', 'appointments.html')
+        return serve_static_anywhere('appointments.html')
     
     # Route for serving the Medical Records page
     @app.route('/medical-records')
     def medical_records():
-        return send_from_directory('static', 'medical-records.html')
+        return serve_static_anywhere('medical-records.html')
     
     # Route for serving the Prescriptions page
     @app.route('/prescriptions')
     def prescriptions():
-        return send_from_directory('static', 'prescriptions.html')
+        return serve_static_anywhere('prescriptions.html')
     
     # Route for serving the Billing page
     @app.route('/billing')
     def billing():
-        return send_from_directory('static', 'billing.html')
+        return serve_static_anywhere('billing.html')
+    
+    # Additional admin utility pages
+    @app.route('/reports')
+    def reports():
+        return serve_static_anywhere('reports.html')
+    
+    @app.route('/system-settings')
+    def system_settings_page():
+        return serve_static_anywhere('system-settings.html')
+    
+    @app.route('/backup')
+    def backup_page():
+        return serve_static_anywhere('backup.html')
     
     # Compute root-level static directory (../static)
     ROOT_STATIC_DIR = os.path.abspath(os.path.join(app.root_path, '..', 'static'))

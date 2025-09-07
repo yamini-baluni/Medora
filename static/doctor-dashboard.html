@@ -133,7 +133,7 @@
                                         9:00
                                     </div>
                                     <div>
-                                        <p class="font-medium text-gray-900">John Doe</p>
+                                        <p class="font-medium text-gray-900">Arjun Mehta</p>
                                         <p class="text-sm text-gray-600">Cardiology Consultation</p>
                                         <p class="text-xs text-gray-500">Patient ID: P001</p>
                                     </div>
@@ -154,7 +154,7 @@
                                         10:30
                                     </div>
                                     <div>
-                                        <p class="font-medium text-gray-900">Jane Smith</p>
+                                        <p class="font-medium text-gray-900">Priya Sharma</p>
                                         <p class="text-sm text-gray-600">Follow-up Check</p>
                                         <p class="text-xs text-gray-500">Patient ID: P015</p>
                                     </div>
@@ -175,7 +175,7 @@
                                         14:00
                                     </div>
                                     <div>
-                                        <p class="font-medium text-gray-900">Mike Johnson</p>
+                                        <p class="font-medium text-gray-900">Rohan Kapoor</p>
                                         <p class="text-sm text-gray-600">Initial Consultation</p>
                                         <p class="text-xs text-gray-500">Patient ID: P089</p>
                                     </div>
@@ -196,7 +196,7 @@
                                         16:00
                                     </div>
                                     <div>
-                                        <p class="font-medium text-gray-900">Sarah Wilson</p>
+                                        <p class="font-medium text-gray-900">Ananya Iyer</p>
                                         <p class="text-sm text-gray-600">Routine Check</p>
                                         <p class="text-xs text-gray-500">Patient ID: P234</p>
                                     </div>
@@ -253,28 +253,28 @@
                         <div class="space-y-3">
                             <div class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded cursor-pointer">
                                 <div class="w-8 h-8 bg-medora-blue rounded-full flex items-center justify-center text-white text-sm font-medium">
-                                    JD
+                                    AM
                                 </div>
                                 <div>
-                                    <p class="font-medium text-gray-900 text-sm">John Doe</p>
+                                    <p class="font-medium text-gray-900 text-sm">Arjun Mehta</p>
                                     <p class="text-xs text-gray-500">Last visit: 2 days ago</p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded cursor-pointer">
                                 <div class="w-8 h-8 bg-medora-green rounded-full flex items-center justify-center text-white text-sm font-medium">
-                                    JS
+                                    PS
                                 </div>
                                 <div>
-                                    <p class="font-medium text-gray-900 text-sm">Jane Smith</p>
+                                    <p class="font-medium text-gray-900 text-sm">Priya Sharma</p>
                                     <p class="text-xs text-gray-500">Last visit: 1 week ago</p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded cursor-pointer">
                                 <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                                    MJ
+                                    RK
                                 </div>
                                 <div>
-                                    <p class="font-medium text-gray-900 text-sm">Mike Johnson</p>
+                                    <p class="font-medium text-gray-900 text-sm">Rohan Kapoor</p>
                                     <p class="text-xs text-gray-500">Last visit: 3 days ago</p>
                                 </div>
                             </div>
@@ -333,10 +333,10 @@
                             <select id="prescription-patient" name="patient" required 
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-medora-blue focus:border-medora-blue">
                                 <option value="">Choose a patient</option>
-                                <option value="p001">John Doe (P001)</option>
-                                <option value="p015">Jane Smith (P015)</option>
-                                <option value="p089">Mike Johnson (P089)</option>
-                                <option value="p234">Sarah Wilson (P234)</option>
+                                <option value="p001">Arjun Mehta (P001)</option>
+                                <option value="p015">Priya Sharma (P015)</option>
+                                <option value="p089">Rohan Kapoor (P089)</option>
+                                <option value="p234">Ananya Iyer (P234)</option>
                             </select>
                         </div>
                         
@@ -482,9 +482,16 @@
 
         // Section navigation (placeholder for other pages)
         function showSection(section) {
-            // This would navigate to different sections or pages
-            alert(`Navigating to ${section} section...`);
-            // In a real application, this would load different content or navigate to different pages
+            const routes = {
+                'patients': '/add-patient',
+                'appointments': '/appointments',
+                'prescriptions': '/prescriptions'
+            };
+            if (routes[section]) {
+                window.location.href = routes[section];
+            } else {
+                window.location.href = '/dashboard';
+            }
         }
 
         // Set current date for prescription

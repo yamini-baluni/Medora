@@ -152,8 +152,8 @@
                                                     JD
                                                 </div>
                                                 <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">John Doe</div>
-                                                    <div class="text-sm text-gray-500">john.doe@email.com</div>
+                                                    <div class="text-sm font-medium text-gray-900">Arjun Mehta</div>
+                                                    <div class="text-sm text-gray-500">arjun.mehta@email.com</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -176,8 +176,8 @@
                                                     SJ
                                                 </div>
                                                 <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. Sarah Johnson</div>
-                                                    <div class="text-sm text-gray-500">sarah.johnson@medora.com</div>
+                                                    <div class="text-sm font-medium text-gray-900">Dr. Neha Singh</div>
+                                                    <div class="text-sm text-gray-500">neha.singh@medora.com</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -200,8 +200,8 @@
                                                     MC
                                                 </div>
                                                 <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">Dr. Michael Chen</div>
-                                                    <div class="text-sm text-gray-500">michael.chen@medora.com</div>
+                                                    <div class="text-sm font-medium text-gray-900">Dr. Arvind Menon</div>
+                                                    <div class="text-sm text-gray-500">arvind.menon@medora.com</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -449,9 +449,16 @@
 
         // Section navigation (placeholder for other pages)
         function showSection(section) {
-            // This would navigate to different sections or pages
-            alert(`Navigating to ${section} section...`);
-            // In a real application, this would load different content or navigate to different pages
+            const routes = {
+                'reports': '/reports',
+                'system': '/system-settings',
+                'backup': '/backup'
+            };
+            if (routes[section]) {
+                window.location.href = routes[section];
+            } else {
+                window.location.href = '/dashboard';
+            }
         }
     </script>
     <script>
