@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializePage() {
     // Check if user is logged in
-    const token = localStorage.getItem('medora_token');
+    const token = localStorage.getItem('access_token') || localStorage.getItem('medora_token');
     if (token) {
         currentToken = token;
         fetchUserProfile();
     } else {
         // Redirect to login if not authenticated
-        window.location.href = '/';
+        window.location.href = '/signin';
     }
 }
 
